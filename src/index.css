@@ -1,13 +1,153 @@
+
+html {
+	--font: 'Montserrat', 'Helvetica', 'Arial', sans-serif;
+	font-family: var(--font);
+
+	--page-color: #F2E9CC;
+	--page2-color: #E9D8A6;
+	--text-color: #001219;
+	--h1-color: #BB3E03;
+	--h2-color: #CA6702;
+	--link-color: #0A9396;
+	--link-hover-color: #005F73;
+	--delete-color: #9B2226;
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	background-color: var(--page-color);
+	text-color: var(--text-color);
+	margin: auto;
+	width: min(90%, 50ch);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+p {
+	line-height: 2;
+}
+
+h1 {
+	color: var(--h1-color);
+}
+
+h2 {
+	color: var(--h2-color);
+}
+
+a {
+	color: var(--link-color);
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover {
+	color: var(--link-hover-color);
+	text-decoration: underline;
+}
+
+nav#navbar li {
+	list-style: none;
+	padding: 0;
+}
+
+nav#navbar ul {
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#featured {
+	margin-bottom: 6em;
+}
+
+article.post img, #featured img {
+	width: 30%;
+	padding-right: 2em;
+	float: left;
+}
+
+article.post button {
+	font-size: small;
+}
+
+
+
+.post-details-content img {
+	width: 100%;
+}
+
+#header {
+	margin-bottom: 4em;
+}
+
+p.metadata {
+	display: flex;
+	flex-direction: column;
+}
+
+form input[type="text"], form input[type="date"], form textarea {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	border: none;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+	font-family: var(--font);
+	background-color: var(--page2-color);
+	font-size: medium;
+}
+
+form textarea {
+	height: 6rem;
+	min-width: 100%;
+	max-width: 100%;
+}
+
+button {
+	border-radius: 0.25rem;
+	background: none;
+	border: 1px solid currentColor;
+	font-family: var(--font);
+	color: var(--link-color);
+	font-size: large;
+	font-weight: bold;
+	padding: 0.5em;
+}
+
+button:hover, button:active{
+	cursor: pointer;
+	background-color: var(--link-color);
+	color: var(--page-color);
+}
+
+button:disabled {
+	opacity: 0.5;
+	cursor: default;
+	color: var(--link-color);
+	background: none;
+}
+
+form .flex-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+
+}
+
+article.post button.delete {
+	color: var(--delete-color);
+}
+
+article.post button.delete:hover, article.post button.delete:active{
+	cursor: pointer;
+	background-color: var(--delete-color);
+	color: var(--page-color);
+}
+
+article.post div.buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: right;
+}
+
+div.buttons button {
+	margin: 0 0.5rem;
 }

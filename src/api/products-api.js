@@ -1,11 +1,11 @@
 import JSONRequest from './json-request'
 
-const URL = "";
+const URL = "http://localhost:2400";
 
 const productsApi = {
 	getAll,
 	create,
-	delete,
+	remove,
 	update
 };
 
@@ -35,7 +35,7 @@ async function create(product) {
 	}
 }
 
-async function delete(productId) {
+async function remove(productId) {
 	try {
 		const response = await jsonRequest.delete("/products/" + productId);
 		return (response.status === 204);

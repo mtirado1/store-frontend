@@ -24,7 +24,17 @@ function App() {
 	return (
 	<div className="App">
 		<Header title="Frontend Store®"/>
-		<Products isAdmin={false} products={products}/>
+		<Routes>
+			<Route path="/" element={
+				<Products isAdmin={false} products={products}/>
+			} />
+			<Route path="/cart" element={
+				<Products isAdmin={false} products={products}/>
+			} />
+			<Route path="/admin" element={
+				<Products isAdmin={true} products={products}/>
+			} />
+		</Routes>
 	</div>
 	);
 }

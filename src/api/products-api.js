@@ -4,6 +4,7 @@ const URL = "http://localhost:2400";
 
 const productsApi = {
 	getAll,
+	getOne,
 	create,
 	remove,
 	update
@@ -14,6 +15,18 @@ const jsonRequest = new JSONRequest(URL);
 async function getAll() {
 	try {
 		const response = await jsonRequest.get("/products");
+		if (response.status === 200) {
+			return response.json();
+		}
+		return null;
+	} catch(error) {
+		console.log(error);
+	}
+}
+
+async function getOne(productId) {
+	try {
+		const response = await jsonRequest.get("/products/" + productId);
 		if (response.status === 200) {
 			return response.json();
 		}

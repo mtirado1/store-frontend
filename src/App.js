@@ -6,6 +6,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import Products from './components/Products';
 import ShoppingCart from './components/ShoppingCart';
+import CreateProduct from './components/CreateProduct';
 
 // API + Domain
 import productsApi from './api/products-api';
@@ -18,6 +19,8 @@ function App() {
 	useEffect(() => {
 		getProducts();
 	}, []);
+
+	const navigate = useNavigate();
 
 	async function getProducts() {
 		const products = await productsApi.getAll();
@@ -39,6 +42,12 @@ function App() {
 		}
 	}
 
+	const adminActions = {
+		navigateEdit: (productId) => {
+			navigate("/edit-product/" + productId);
+		}
+	}
+
 	return (
 	<div className="App">
 		<Header title="Frontend Store®" cartItems={shoppingCart.totalItems}/>
@@ -46,11 +55,17 @@ function App() {
 			<Route path="/" element={
 				<Products isAdmin={false} products={products} customerActions={customerActions}/>
 			} />
+			<Route path="create-product" element={
+				<CreateProduct/>
+			}/>
+			<Route path="edit-product/:productId" element={
+				<CreateProduct/>
+			}/>
 			<Route path="/cart" element={
 				<ShoppingCart items={shoppingCart.items} actions={customerActions}/>
 			} />
 			<Route path="/admin" element={
-				<Products isAdmin={true} products={products}/>
+				<Products isAdmin={true} products={products} adminActions={adminActions}/>
 			} />
 		</Routes>
 	</div>

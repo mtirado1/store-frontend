@@ -40,6 +40,9 @@ function Product({isAdmin, product, adminActions, customerActions}) {
 }
 
 function Products({isAdmin, products, adminActions, customerActions}) {
+	if (products.length === 0) {
+		return <h2>No products available</h2>;
+	}
 	return (
 		<div className="product-list">
 			{products.map(product => {

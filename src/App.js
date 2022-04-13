@@ -47,9 +47,7 @@ function App() {
 			setShoppingCart(new Cart(shoppingCart.items, shoppingCart.name, address));
 		},
 		checkout: async () => {
-			console.log("checkout");
 			const request = shoppingCart.makeOrderRequest();
-			console.log(request);
 			const success = await productsApi.order(request);
 			if (success) {
 				navigate("/order-ok");
@@ -73,7 +71,6 @@ function App() {
 				navigate("/admin");
 			} else {
 				const createdProduct = await productsApi.create(product);
-				console.log(createdProduct);
 				if (!createdProduct) return;
 				setProducts([createdProduct, ...products]);
 				navigate("/admin");

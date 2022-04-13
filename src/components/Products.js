@@ -2,7 +2,7 @@ function AdminControls({product, actions}) {
 	return (
 		<div className="controls">
 			<button onClick={() => actions.navigateEdit(product._id)}>Edit</button>
-			<button className="delete" onClick={() => actions.delete(product)}>Delete</button>
+			<button className="delete" onClick={() => actions.remove(product)}>Delete</button>
 		</div>
 	);
 }

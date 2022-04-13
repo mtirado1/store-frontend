@@ -38,7 +38,7 @@ async function getOne(productId) {
 
 async function create(product) {
 	try {
-		const response = await jsonRequest.post("/products");
+		const response = await jsonRequest.post("/products", product);
 		if (response.status === 201) {
 			return response.json();
 		}

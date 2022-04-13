@@ -16,7 +16,7 @@ function CreateProduct({onSave}) {
 	const [product, setProduct] = useState(emptyProduct);
 
 	function isSaveDisabled() {
-		return product.title === "" || product.imageUrl === "" || Number.isNaN(product.quantity) || Number.isNaN(product.price);
+		return product.title === "" || product.imageUrl === "" || Number.isNaN(product.price) || !Number.isInteger(product.quantity) || Number(product.price) < 0 || Number(product.quantity) < 0;
 	}
 
 	function updateProduct(key, value) {
@@ -61,7 +61,23 @@ function CreateProduct({onSave}) {
 			value={product.description}>
 		</textarea>
 		<h3>Price</h3>
+		<input
+			onChange={(event) => updateProduct("price", Number(event.target.value))}
+			type="number"
+			step="1"
+			min="0"
+			name="Price"
+			value={product.price}
+		/>
 		<h3>Quantity</h3>
+		<input
+			onChange={(event) => updateProduct("quantity", Number(event.target.value))}
+			type="number"
+			className="price"
+			name="Price"
+			min="0"
+			value={product.quantity}
+		/>
 		<p className="flex-row">
 			<button type="button" disabled={isSaveDisabled()} onClick={() => {onSave(product, productId)}}>{productId ? "Update" : "Create"}</button>
 			<button type="button" onClick={() => navigate("/admin")}>Cancel</button>

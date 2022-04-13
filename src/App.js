@@ -1,6 +1,6 @@
 // React + Router
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Link, Routes, Route, useNavigate } from 'react-router-dom';
 
 // Components
 import Header from './components/Header';
@@ -45,6 +45,30 @@ function App() {
 	const adminActions = {
 		navigateEdit: (productId) => {
 			navigate("/edit-product/" + productId);
+		},
+
+		save: async (product, productId) => {
+			if (productId) {
+				const updatedProduct = await productsApi.update(productId, product);
+				if (!updatedProduct) return;
+				const otherProducts = products.filter(product => product._id !== productId);
+				setProducts([updatedProduct, ...otherProducts]);
+				navigate("/admin");
+			} else {
+				const createdProduct = await productsApi.create(product);
+				console.log(createdProduct);
+				if (!createdProduct) return;
+				setProducts([createdProduct, ...products]);
+				navigate("/admin");
+			}
+		},
+
+		remove: async (product) => {
+			const productId = product._id;
+			if (await productsApi.remove(productId)) {
+				const remainingProducts = products.filter(product => product._id !== productId);
+				setProducts([...remainingProducts]);
+			}
 		}
 	}
 
@@ -56,16 +80,19 @@ function App() {
 				<Products isAdmin={false} products={products} customerActions={customerActions}/>
 			} />
 			<Route path="create-product" element={
-				<CreateProduct/>
+				<CreateProduct onSave={adminActions.save}/>
 			}/>
 			<Route path="edit-product/:productId" element={
-				<CreateProduct/>
+				<CreateProduct onSave={adminActions.save}/>
 			}/>
 			<Route path="/cart" element={
 				<ShoppingCart items={shoppingCart.items} actions={customerActions}/>
 			} />
 			<Route path="/admin" element={
+				<>
+				<Link to="/create-product">Add Product</Link>
 				<Products isAdmin={true} products={products} adminActions={adminActions}/>
+				</>
 			} />
 		</Routes>
 	</div>

@@ -24,18 +24,50 @@ function CartItem({item, actions}) {
 	);
 }
 
-function ShoppingCart({items, actions}) {
-	if (items.length === 0) {
+function ShoppingCart({cart, actions}) {
+	if (cart.items.length === 0) {
 		return <h2>There are no items in your cart</h2>;
 	}
+
+	function isCheckOutDisabled() {
+		return cart.name === "" || cart.address === "";
+	}
+
 	return (
 		<>
 		<h2>Your Shopping Cart</h2>
 		<div className="cart-list">
 		{
-			items.map(item => <CartItem key={item.product._id} item={item} actions={actions}/>)
+			cart.items.map(item => <CartItem key={item.product._id} item={item} actions={actions}/>)
 		}
 		</div>
+		<p>{cart.items.length} {cart.items.length === 1 ? "Product" : "Products"}</p>
+		<p>{cart.totalItems} {cart.totalItems === 1 ? "Item" : "Items"}</p>
+		<p>TOTAL: <span className="price">${cart.totalCost}</span></p>
+		<h2>Deliver to</h2>
+		<form>
+			<h3>Name</h3>
+			<input
+				type="text"
+				onChange={event => actions.updateName(event.target.value)}
+				name="Name"
+				value={cart.name}
+			/>
+			<h3>Address</h3>
+			<input
+				type="text"
+				onChange={event => actions.updateAddress(event.target.value)}
+				name="Address"
+				value={cart.address}
+			/>
+			<p className="flex-row">
+			<button
+				type="button"
+				disabled={isCheckOutDisabled()}
+				onClick={actions.checkout}
+			>Check Out</button>
+			</p>
+		</form>
 		</>
 	);
 }

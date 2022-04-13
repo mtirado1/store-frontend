@@ -3,12 +3,16 @@ function bound(x, min, max) {
 }
 
 class Cart {
-	constructor(items = []) {
+	constructor(items = [], name = "", address = "") {
+		this.name = name;
+		this.address = address;
 		this.items = items;
 	}
 
 	clear() {
 		this.items = [];
+		this.name = "";
+		this.address = "";
 	}
 
 	update(product, quantity) {
@@ -44,8 +48,23 @@ class Cart {
 
 	get totalCost() {
 		return this.items.reduce(
-			(total, item) => total + item.product.cost * item.quantity, 0
+			(total, item) => total + item.product.price * item.quantity, 0
 		);
+	}
+
+	makeOrderRequest() {
+		return {
+			customer: {
+				name: this.name,
+				address: this.address
+			},
+			products: this.items.map(item => {
+				return {
+					productId: item.product._id,
+					quantity: item.quantity
+				};
+			})
+		};
 	}
 }
 

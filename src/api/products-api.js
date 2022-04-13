@@ -7,7 +7,8 @@ const productsApi = {
 	getOne,
 	create,
 	remove,
-	update
+	update,
+	order
 };
 
 const jsonRequest = new JSONRequest(URL);
@@ -61,6 +62,19 @@ async function update(productId, product) {
 	try {
 		const response = await jsonRequest.put("/products/" + productId, product);
 		return response.json();
+	} catch(error) {
+		console.log(error);
+	}
+}
+
+async function order(shoppingCart) {
+	try {
+		const response = await jsonRequest.post("/orders", shoppingCart);
+		if (response.status === 201) {
+			return response.json();
+		} else {
+			return null;
+		}
 	} catch(error) {
 		console.log(error);
 	}

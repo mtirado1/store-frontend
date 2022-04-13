@@ -30,21 +30,38 @@ function App() {
 	const customerActions = {
 		add: (product) => {
 			shoppingCart.add(product);
-			setShoppingCart(new Cart(shoppingCart.items));
+			setShoppingCart(new Cart(shoppingCart.items, shoppingCart.name, shoppingCart.address));
 		},
 		update: (product, quantity) => {
 			shoppingCart.update(product, quantity);
-			setShoppingCart(new Cart(shoppingCart.items));
+			setShoppingCart(new Cart(shoppingCart.items, shoppingCart.name, shoppingCart.address));
 		},
 		remove: (product) => {
 			shoppingCart.remove(product);
-			setShoppingCart(new Cart(shoppingCart.items));
+			setShoppingCart(new Cart(shoppingCart.items, shoppingCart.name, shoppingCart.address));
+		},
+		updateName: (name) => {
+			setShoppingCart(new Cart(shoppingCart.items, name, shoppingCart.address));
+		},
+		updateAddress: (address) => {
+			setShoppingCart(new Cart(shoppingCart.items, shoppingCart.name, address));
+		},
+		checkout: async () => {
+			console.log("checkout");
+			const request = shoppingCart.makeOrderRequest();
+			console.log(request);
+			const success = await productsApi.order(request);
+			if (success) {
+				navigate("/order-ok");
+			} else {
+				navigate("/order-error");
+			}
 		}
 	}
 
 	const adminActions = {
 		navigateEdit: (productId) => {
-			navigate("/edit-product/" + productId);
+			navigate("admin/edit-product/" + productId);
 		},
 
 		save: async (product, productId) => {
@@ -79,19 +96,31 @@ function App() {
 			<Route path="/" element={
 				<Products isAdmin={false} products={products} customerActions={customerActions}/>
 			} />
-			<Route path="create-product" element={
+			<Route path="/admin/create-product" element={
 				<CreateProduct onSave={adminActions.save}/>
 			}/>
-			<Route path="edit-product/:productId" element={
+			<Route path="/admin/edit-product/:productId" element={
 				<CreateProduct onSave={adminActions.save}/>
 			}/>
 			<Route path="/cart" element={
-				<ShoppingCart items={shoppingCart.items} actions={customerActions}/>
+				<ShoppingCart cart={shoppingCart} actions={customerActions}/>
 			} />
 			<Route path="/admin" element={
 				<>
-				<Link to="/create-product">Add Product</Link>
+				<Link to="/admin/create-product">Add Product</Link>
 				<Products isAdmin={true} products={products} adminActions={adminActions}/>
+				</>
+			} />
+			<Route path="/order-ok" element={
+				<>
+				<h2>Product order successful!</h2>
+				<Link to="/">Return to Home</Link>
+				</>
+			} />
+			<Route path="/order-error" element={
+				<>
+				<h2>There was an error when processing your order.</h2>
+				<Link to="/">Return to Home</Link>
 				</>
 			} />
 		</Routes>

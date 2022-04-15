@@ -1,6 +1,6 @@
 import JSONRequest from './json-request'
 
-const URL = "http://localhost:2400";
+const URL = "https://simple-store-backend.herokuapp.com";
 
 const productsApi = {
 	getAll,

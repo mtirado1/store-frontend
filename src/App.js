@@ -49,6 +49,7 @@ function App() {
 		checkout: async () => {
 			const request = shoppingCart.makeOrderRequest();
 			const success = await productsApi.order(request);
+			setShoppingCart(new Cart());
 			if (success) {
 				navigate("/order-ok");
 			} else {

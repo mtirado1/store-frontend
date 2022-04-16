@@ -43,7 +43,7 @@ class Cart {
 	}
 
 	get totalItems() {
-		return this.items.reduce((total, item) => item.quantity, 0);
+		return this.items.reduce((total, item) => total + item.quantity, 0);
 	}
 
 	get totalCost() {

@@ -16,7 +16,7 @@ body {
 	background-color: var(--page-color);
 	text-color: var(--text-color);
 	margin: auto;
-	width: min(90%, 50ch);
+	width: min(90%, 70ch);
 }
 
 p {
@@ -58,30 +58,13 @@ nav#navbar ul {
 	margin-bottom: 6em;
 }
 
-article.post img, #featured img {
-	width: 30%;
-	padding-right: 2em;
-	float: left;
-}
 
-article.post button {
-	font-size: small;
-}
-
-
-
-.post-details-content img {
-	width: 100%;
-}
 
 #header {
 	margin-bottom: 4em;
 }
 
-p.metadata {
-	display: flex;
-	flex-direction: column;
-}
+
 
 form input[type="text"], form input[type="date"], form textarea {
 	display: block;
@@ -132,11 +115,59 @@ form .flex-row {
 
 }
 
-article.post button.delete {
+.product-list {
+	display: grid;
+	grid-gap: 2em;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.product-list .product {
+	border-radius: 0.5rem;
+	background: var(--page2-color);
+	padding: 0.5em;
+}
+
+.product-list .product img {
+	width: 100%;
+	height: 10em;
+	object-fit: contain;
+	display: block;
+	margin: auto;
+}
+
+.price {
+	font-weight: bold;
+	font-size: large;
+	margin: 0;
+	text-align: right;
+	line-height: 1;
+}
+
+.price .number {
+	font-size: 2em;
+}
+
+
+.product .controls {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+}
+
+.stock, .out-of-stock {
+	text-align: right;
+}
+
+.out-of-stock {
+	font-weight: bold;
 	color: var(--delete-color);
 }
 
-article.post button.delete:hover, article.post button.delete:active{
+button.delete {
+	color: var(--delete-color);
+}
+
+button.delete:hover, button.delete:active{
 	cursor: pointer;
 	background-color: var(--delete-color);
 	color: var(--page-color);
@@ -146,8 +177,4 @@ article.post div.buttons {
 	display: flex;
 	flex-direction: row;
 	justify-content: right;
-}
-
-div.buttons button {
-	margin: 0 0.5rem;
 }

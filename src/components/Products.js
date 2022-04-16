@@ -18,17 +18,18 @@ function CustomerControls({product, actions}) {
 
 function Quantity({value}) {
 	const inStock = (value ?? 0) !== 0;
-	return <p className={inStock ? "stock" : "out-of-stock"}>{inStock ? `${value} in stock` : "Out of stock"}</p>
+	if (inStock) return <p className="stock"><b>{value}</b> in stock</p>
+	return <p className="out-of-stock">Out of stock</p>
 }
 
 function Product({isAdmin, product, adminActions, customerActions}) {
 	const id = product._id;
 	return (
-		<div>
+		<div className="product">
 		<h3>{product.title}</h3>
 		<img src={product.imageUrl}/>
 		<p>{product.description}</p>
-		<p>${product.price}</p>
+		<p className="price">$<span className="number">{product.price}</span></p>
 		<Quantity value={product.quantity}/>
 			{
 				isAdmin ?

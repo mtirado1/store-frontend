@@ -43,7 +43,7 @@ function ShoppingCart({cart, actions}) {
 		</div>
 		<p>{cart.items.length} {cart.items.length === 1 ? "Product" : "Products"}</p>
 		<p>{cart.totalItems} {cart.totalItems === 1 ? "Item" : "Items"}</p>
-		<p>TOTAL: <span className="price">${cart.totalCost}</span></p>
+		<p>TOTAL: <span className="price">$<span className="number">{cart.totalCost}</span></span></p>
 		<h2>Deliver to</h2>
 		<form>
 			<h3>Name</h3>

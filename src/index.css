@@ -178,3 +178,34 @@ article.post div.buttons {
 	flex-direction: row;
 	justify-content: right;
 }
+
+.cart-list {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: 2em;
+}
+
+.cart-item {
+	background-color: var(--page2-color);
+	border-radius:  0.5rem;
+	padding: 1em;
+}
+
+.cart-item img {
+	object-fit: contain;
+	float: left;
+	width: 30%;
+	height: 10em;
+}
+
+.cart-item .control {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.control input[type="number"] {
+	border: none;
+	font-size: large;
+	width: 6ch;
+}
